@@ -2,17 +2,10 @@ defmodule WeatherScraper do
   @moduledoc """
   Documentation for WeatherScraper.
   """
+  use Application
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> WeatherScraper.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def start(_type, _args) do
+    Envy.auto_load
+    WeatherScraper.Supervisor.start_link(name: WeatherScraper.Supervisor)
   end
 end
