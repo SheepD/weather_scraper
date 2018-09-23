@@ -34,6 +34,7 @@ defmodule WeatherScraper.Scheduler do
   end
 
   defp do_work do
-    IO.puts "I am doing work at #{DateTime.utc_now}"
+    body = WeatherScraper.Scraper.get!("/weather?q=Manila").body
+    IO.puts body["main"]["temp"]
   end
 end
