@@ -1,21 +1,15 @@
 # WeatherScraper
 
-**TODO: Add description**
+This is a simple app that scrapes weather data from [open weather map](https://openweathermap.org) with a `GenServer` scheduler then persists the temperature data into the database with `Ecto`
 
-## Installation
+## Requirements
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `weather_scraper` to your list of dependencies in `mix.exs`:
+* Elixir 1.7+
+* PostgreSQL
 
-```elixir
-def deps do
-  [
-    {:weather_scraper, "~> 0.1.0"}
-  ]
-end
-```
+## Setup
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/weather_scraper](https://hexdocs.pm/weather_scraper).
-
+* setup the required env variables via `cp .env.something .env`
+* `mix deps.get`
+* `mix ecto.create`
+* `mix run`
