@@ -7,6 +7,7 @@ defmodule WeatherScraper.Supervisor do
 
   def init(:ok) do
     children = [
+      supervisor(WeatherScraper.Repo, []),
       {WeatherScraper.Scheduler, name: WeatherScraper.Scheduler}
     ]
 

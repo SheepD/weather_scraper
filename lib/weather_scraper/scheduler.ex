@@ -35,6 +35,15 @@ defmodule WeatherScraper.Scheduler do
 
   defp do_work do
     body = WeatherScraper.Scraper.get!("/weather?q=Manila").body
-    IO.puts body["main"]["temp"]
+    weather =
+      %WeatherScraper.Weather{
+        city:     body["name"],
+        temp_min: body["main"]["temp_min"],
+        temp_max: body["main"]["temp_max"],
+        humidity: body["main"]["humidity"],
+        pressure: body["main"]["pressure"],
+        time:     DateTime.utc_now
+      }
+    WeatherScraper.Repo.insert!(weather)
   end
 end

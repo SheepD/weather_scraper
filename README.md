@@ -12,4 +12,5 @@ This is a simple app that scrapes weather data from [open weather map](https://o
 * setup the required env variables via `cp .env.something .env`
 * `mix deps.get`
 * `mix ecto.create`
-* `mix run`
+* `mix ecto.migrate`
+* `mix run --no-halt`
