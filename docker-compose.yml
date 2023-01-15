@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+    command: mix run --no-halt
+    env_file:
+      - .env
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: weather_scraper_dev
+    volumes:
+      - database:/var/lib/postgresql/data
+
+volumes:
+  database:

@@ -5,7 +5,6 @@ defmodule WeatherScraper do
   use Application
 
   def start(_type, _args) do
-    Envy.auto_load
     WeatherScraper.Supervisor.start_link(name: WeatherScraper.Supervisor)
   end
 end

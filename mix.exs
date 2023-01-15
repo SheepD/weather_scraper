@@ -26,7 +26,6 @@ defmodule WeatherScraper.MixProject do
       {:ecto, "~> 2.2.0"},
       {:httpoison, "~> 1.0"},
       {:mix_test_watch, "~> 0.8", except: :prod, runtime: false},
-      {:envy, "~> 1.1.1"},
       {:poison, "~> 3.1"},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
     ]

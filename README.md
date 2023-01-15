@@ -4,8 +4,8 @@ This is a simple app that scrapes weather data from [open weather map](https://o
 
 ## Requirements
 
-* Elixir 1.14+
-* Erlang OTP 24+
+* Elixir 1.13+
+* Erlang OTP 25
 * PostgreSQL
 
 ## Getting Started
@@ -14,7 +14,6 @@ This is a simple app that scrapes weather data from [open weather map](https://o
 
 * setup the required env variables via `cp .env.example .env`
 * `docker-compose up`
-
 
 ### Without Docker
 
