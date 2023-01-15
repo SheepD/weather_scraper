@@ -1,18 +1,14 @@
-use Mix.Config
+import Config
 
 config :mix_test_watch, clear: true
 
 config :weather_scraper, ecto_repos: [WeatherScraper.Repo]
 
 config :weather_scraper, WeatherScraper.Repo,
-  database: "weather_scraper_dev",
-  hostname: "localhost",
+  database: System.get_env("POSTGRES_DBNAME", "weather_scraper_dev"),
+  hostname: System.get_env("POSTGRES_HOSTNAME", "postgres"),
+  username: System.get_env("POSTGRES_USERNAME", "postgres"),
+  password: System.get_env("POSTGRES_PASSWORD", "postgres"),
   pool_size: 10
 
-# It is also possible to import configuration files, relative to this
-# directory. For example, you can emulate configuration per environment
-# by uncommenting the line below and defining dev.exs, test.exs and such.
-# Configuration from the imported file will override the ones defined
-# here (which is why it is important to import them last).
-#
-#     import_config "#{Mix.env()}.exs"
+import_config "#{config_env()}.exs"
