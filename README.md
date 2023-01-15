@@ -4,13 +4,26 @@ This is a simple app that scrapes weather data from [open weather map](https://o
 
 ## Requirements
 
-* Elixir 1.7+
+* Elixir 1.14+
+* Erlang OTP 24+
 * PostgreSQL
 
-## Setup
+## Getting Started
 
-* setup the required env variables via `cp .env.something .env`
+### Docker
+
+* setup the required env variables via `cp .env.example .env`
+* `docker-compose up`
+
+
+### Without Docker
+
+* setup the required env variables via `cp .env.example .env`
 * `mix deps.get`
 * `mix ecto.create`
 * `mix ecto.migrate`
 * `mix run --no-halt`
+
+## To open the console
+
+`iex -S mix`
