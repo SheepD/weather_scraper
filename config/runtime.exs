@@ -1,7 +1,7 @@
 import Config
 
 if Enum.member?(~w(prod staging)a, config_env()) do
-  config :weather_scraper, WeatherScraper.Repo,
+  config :weather_scraper, WeatherScraper.Postgres.Repo,
     database: System.fetch_env!("POSTGRES_DBNAME"),
     hostname: System.fetch_env!("POSTGRES_HOSTNAME"),
     username: System.fetch_env!("POSTGRES_USERNAME"),

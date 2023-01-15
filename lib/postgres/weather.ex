@@ -1,15 +1,15 @@
-defmodule WeatherScraper.Weather do
+defmodule WeatherScraper.Postgres.Weather do
   use Ecto.Schema
 
   import Ecto.Changeset
 
   schema "weather" do
-    field :city,     :string
-    field :temp_min, :float
-    field :temp_max, :float
-    field :humidity, :integer
-    field :pressure, :integer
-    field :time,     :utc_datetime
+    field(:city, :string)
+    field(:temp_min, :float)
+    field(:temp_max, :float)
+    field(:humidity, :integer)
+    field(:pressure, :integer)
+    field(:time, :utc_datetime)
   end
 
   @spec changeset(
