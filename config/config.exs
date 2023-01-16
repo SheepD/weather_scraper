@@ -13,4 +13,8 @@ config :weather_scraper, Repo,
   password: System.get_env("POSTGRES_PASSWORD", "postgres"),
   pool_size: 10
 
+config :open_weather_map,
+  api_key: System.get_env("OPEN_WEATHER_MAP_API_KEY", ""),
+  base_url: System.get_env("OPEN_WEATHER_MAP_BASE_URL", "api.openweathermap.org/data/2.5")
+
 import_config "#{config_env()}.exs"
