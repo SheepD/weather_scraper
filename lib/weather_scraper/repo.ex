@@ -1,4 +1,4 @@
-defmodule WeatherScraper.Postgres.Repo do
+defmodule WeatherScraper.Repo do
   @moduledoc """
   Module for the Postgres Repo of the Application
   """

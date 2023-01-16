@@ -1,4 +1,4 @@
-defmodule WeatherScraper.Postgres.Weather do
+defmodule WeatherScraper.Weather do
   use Ecto.Schema
 
   import Ecto.Changeset

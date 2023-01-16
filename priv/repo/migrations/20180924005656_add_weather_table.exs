@@ -1,4 +1,4 @@
-defmodule WeatherScraper.Postgres.Repo.Migrations.AddWeatherTable do
+defmodule WeatherScraper.Repo.Migrations.AddWeatherTable do
   use Ecto.Migration
 
   def change do

@@ -6,7 +6,7 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClient do
   use HTTPoison.Base
 
   alias WeatherScraper.WeatherApi
-  alias WeatherScraper.Postgres.Weather
+  alias WeatherScraper.Weather
 
   @behaviour WeatherApi
 
