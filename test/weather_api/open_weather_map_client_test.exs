@@ -3,11 +3,11 @@ defmodule  WeatherScraper.WeatherApi.OpenWeatherMapClientTest do
 
   alias WeatherScraper.WeatherApi.OpenWeatherMapClient
 
-  describe "process_url/1" do
+  describe "process_request_url/1" do
     test "returns an escaped URI" do
-      uri = OpenWeatherMapClient.process_url("/weather?q=Berlin")
+      uri = OpenWeatherMapClient.process_request_url("/weather?q=Berlin")
 
-      assert uri == "api.openweathermap.org/data/2.5/weather?q=Berlin&APPID=test"
+      assert uri == "api.openweathermap.org/data/2.5/weather?q=Berlin&appid=test"
     end
   end
 

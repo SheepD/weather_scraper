@@ -5,8 +5,6 @@ defmodule WeatherScraper.WeatherApi do
 
   @callback fetch_weather() :: {:ok, map()} | {:error, String.t()}
 
-  @callback format_response(map()) :: {:ok, map()} | {:error, String.t()}
-
   def fetch_weather do
     api_client().get_entries()
   end

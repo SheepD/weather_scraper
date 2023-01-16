@@ -5,60 +5,44 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClient do
 
   use HTTPoison.Base
 
-  alias WeatherScraper.WeatherApi
-  alias WeatherScraper.Weather
+  alias WeatherScraper.{Weather, WeatherApi, Repo}
 
   @behaviour WeatherApi
 
+  @expected_fields ~w(temp_min temp_max humidity pressure)
+
   @impl true
-  def process_url(url) do
-    uri = "#{base_url()}#{url}&APPID=#{api_key()}"
+  def process_request_url(url) do
+    uri = "#{base_url()}#{url}&appid=#{api_key()}"
 
     URI.encode(uri)
   end
 
   @impl true
   def process_response_body(body) do
-    case Poison.decode(body) do
-      {:ok, body} -> {:ok, body}
-      {:error, _err} -> {:error, :invalid_json}
-    end
-  end
-
-  @impl WeatherApi
-  def fetch_weather() do
-    with {:ok, %{body: %{"name" => name, "main" => main}}} <-
-          get("/weather?q=Manila") do
-      main
-      |> Map.merge(%{ "name" => name })
-      |> format_response()
+    with parsed_body <- Poison.decode!(body),
+         {:ok, city} <- Map.fetch(parsed_body, "name"),
+         {:ok, temp_data} <- Map.fetch(parsed_body, "main")
+    do
+      temp_data
+      |> Map.take(@expected_fields)
+      |> Map.new(fn({k, v}) -> {String.to_atom(k), v} end)
+      |> Map.merge(%{ city: city, time: DateTime.utc_now() })
     else
-      {:ok, _} -> {:error, :invalid_request}
-      map when is_map(map) -> {:error, :failed_to_parse}
       error -> error
     end
   end
 
   @impl WeatherApi
-  def format_response(
-    %{
-      "name" => name,
-      "temp_min" => temp_min,
-      "temp_max" => temp_max,
-      "humidity" => humidity,
-      "pressure" => pressure
-    }) do
-    {
-      :ok,
-      %Weather{
-        city: name,
-        temp_min: temp_min,
-        temp_max: temp_max,
-        humidity: humidity,
-        pressure: pressure,
-        time: DateTime.utc_now()
-      }
-    }
+  def fetch_weather() do
+    with {:ok, %{body: params}} <- get("/weather?q=Berlin") do
+      %Weather{}
+      |> Weather.changeset(params)
+      |> Repo.insert()
+    else
+      {:ok, _} -> {:error, :invalid_request}
+      error -> error
+    end
   end
 
   defp base_url, do: Application.fetch_env!(:weather_scraper, :open_weather_map_base_url)
