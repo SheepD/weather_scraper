@@ -7,6 +7,7 @@ config :mix_test_watch, clear: true
 
 config :weather_scraper,
   ecto_repos: [Repo],
+  poll_interval: System.get_env("POLL_INTERVAL", "5"),
   weather_api_client: OpenWeatherMapClient,
   open_weather_map_api_key: System.get_env("OPEN_WEATHER_MAP_API_KEY", "test"),
   open_weather_map_base_url: System.get_env("OPEN_WEATHER_MAP_BASE_URL", "api.openweathermap.org/data/2.5")

@@ -5,13 +5,13 @@ defmodule WeatherScraper.Application do
 
   use Application
 
-  alias WeatherScraper.Repo
+  alias WeatherScraper.{Repo, Scraper}
 
   @spec start(any, any) :: {:ok, pid} | {:error, any}
   def start(_type, _args) do
     children = [
       {Repo, []},
-      # {WeatherScraper.Scheduler, name: WeatherScraper.Scheduler}
+      {Scraper, []}
     ]
 
     Supervisor.start_link(children,
