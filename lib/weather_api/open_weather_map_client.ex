@@ -12,7 +12,7 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClient do
 
   @impl true
   def process_url(url) do
-    uri = "#{base_url()}/#{url}&APPID=#{api_key()}"
+    uri = "#{base_url()}#{url}&APPID=#{api_key()}"
 
     URI.encode(uri)
   end
@@ -61,6 +61,6 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClient do
     }
   end
 
-  defp base_url, do: Application.fetch_env!(:open_weather_map, :base_url)
-  defp api_key, do: Application.fetch_env!(:open_weather_map, :api_key)
+  defp base_url, do: Application.fetch_env!(:weather_scraper, :open_weather_map_base_url)
+  defp api_key, do: Application.fetch_env!(:weather_scraper, :open_weather_map_api_key)
 end
