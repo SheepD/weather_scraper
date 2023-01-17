@@ -5,7 +5,7 @@ defmodule WeatherScraper.Scraper do
 
   use GenServer
 
-  alias WeatherScraper.WeatherApi
+  alias WeatherScraper.{WeatherApi, Repo}
 
   # Client
   def start_link(opts) do
@@ -13,6 +13,7 @@ defmodule WeatherScraper.Scraper do
   end
 
   # Server
+  @impl true
   def init(state) do
     schedule_work()
 
@@ -21,7 +22,10 @@ defmodule WeatherScraper.Scraper do
 
   @impl true
   def handle_info(:fetch_weather_data, state) do
-    Task.async(fn -> WeatherApi.fetch_weather() end)
+    Task.async(fn ->
+      {:ok, weather} = WeatherApi.fetch_weather()
+      Repo.insert(weather)
+    end)
 
     schedule_work()
 

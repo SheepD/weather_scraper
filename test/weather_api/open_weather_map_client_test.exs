@@ -40,10 +40,11 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClientTest do
   end
 
   describe "fetch_weather/1" do
-    test "fetches weather data from the api and inserts a new weather record" do
+    test "fetches weather data from the api" do
       use_cassette "open_weather_map_success" do
         assert {:ok,
                 %Weather{
+                  id: nil,
                   city: "Berlin",
                   humidity: 79,
                   pressure: 973,

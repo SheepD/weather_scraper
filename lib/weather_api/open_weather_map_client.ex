@@ -5,7 +5,8 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClient do
 
   use HTTPoison.Base
 
-  alias WeatherScraper.{Weather, WeatherApi, Repo}
+  alias WeatherScraper.{Weather, WeatherApi}
+  alias Ecto.Changeset
 
   @behaviour WeatherApi
 
@@ -35,10 +36,10 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClient do
   @impl WeatherApi
   def fetch_weather(location) do
     with {:ok, %{body: params}} <- get("/weather?q=#{location}") do
-      {:ok, weather} =
+      weather =
         %Weather{}
         |> Weather.changeset(params)
-        |> Repo.insert()
+        |> Changeset.apply_changes()
 
       {:ok, weather}
     else
