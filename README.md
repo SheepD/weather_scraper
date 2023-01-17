@@ -25,7 +25,9 @@ This is a simple app that scrapes weather data from [open weather map](https://o
 
 ## Room for improvement
 
+* configure Github CI & Linters (i.e Dialyzer, Credo)
+* improve test coverage
 * update typespecs
 * add additional weather clients
 * improve handling of failure scenarios for weather clients (i.e. throttling)
-* improve test coverage
+* improve weather scraper to allow data collection from multiple locations

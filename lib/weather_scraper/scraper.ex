@@ -5,7 +5,7 @@ defmodule WeatherScraper.Scraper do
 
   use GenServer
 
-  require Logger
+  alias WeatherScraper.WeatherApi
 
   # Client
   def start_link(opts) do
@@ -21,10 +21,7 @@ defmodule WeatherScraper.Scraper do
 
   @impl true
   def handle_info(:work, state) do
-    # Task.async(fn ->
-    #   res = Application.fetch_weather()
-    #   Logger.debug(inspect(res))
-    # end)
+    Task.async(fn -> WeatherApi.fetch_weather() end)
 
     schedule_work()
 

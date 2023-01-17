@@ -34,8 +34,8 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClient do
   end
 
   @impl WeatherApi
-  def fetch_weather() do
-    with {:ok, %{body: params}} <- get("/weather?q=Berlin") do
+  def fetch_weather(location) do
+    with {:ok, %{body: params}} <- get("/weather?q=#{location}") do
       %Weather{}
       |> Weather.changeset(params)
       |> Repo.insert()
