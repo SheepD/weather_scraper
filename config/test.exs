@@ -7,4 +7,5 @@ config :weather_scraper, WeatherScraper.Repo,
   database: "weather_scraper_test"
 
 config :weather_scraper,
-  open_weather_map_api_key: "test"
+  open_weather_map_api_key: "test",
+  poll_interval: "1"

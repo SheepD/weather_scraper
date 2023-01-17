@@ -22,17 +22,17 @@ defmodule WeatherScraper.Scraper do
 
   @impl true
   def handle_info(:fetch_weather_data, state) do
-    Task.async(fn ->
-      {:ok, weather} = WeatherApi.fetch_weather()
-      Repo.insert(weather)
-    end)
+    with  {:ok, weather} <- WeatherApi.fetch_weather() do
+      {:ok, _} = Repo.insert(weather)
+    end
 
     schedule_work()
 
     {:noreply, state}
   end
 
-  defp schedule_work(), do: Process.send_after(self(), :fetch_weather_data, interval() * 1000)
+  defp schedule_work(),
+    do: Process.send_after(self(), :fetch_weather_data, :timer.seconds(interval()))
 
   defp interval,
     do: Application.fetch_env!(:weather_scraper, :poll_interval) |> String.to_integer()
