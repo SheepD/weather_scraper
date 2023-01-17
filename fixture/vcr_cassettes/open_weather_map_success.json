@@ -1,0 +1,29 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "api.openweathermap.org/data/2.5/weather?q=Berlin&appid=test"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"coord\":{\"lon\":13.4105,\"lat\":52.5244},\"weather\":[{\"id\":803,\"main\":\"Clouds\",\"description\":\"broken clouds\",\"icon\":\"04d\"}],\"base\":\"stations\",\"main\":{\"temp\":278.05,\"feels_like\":272.65,\"temp_min\":277.09,\"temp_max\":279.23,\"pressure\":973,\"humidity\":79},\"visibility\":10000,\"wind\":{\"speed\":9.83,\"deg\":235,\"gust\":14.31},\"clouds\":{\"all\":75},\"dt\":1673948835,\"sys\":{\"type\":2,\"id\":2011538,\"country\":\"DE\",\"sunrise\":1673939297,\"sunset\":1673969034},\"timezone\":3600,\"id\":2950159,\"name\":\"Berlin\",\"cod\":200}",
+      "headers": {
+        "Server": "openresty",
+        "Date": "Tue, 17 Jan 2023 09:55:02 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "488",
+        "Connection": "keep-alive",
+        "X-Cache-Key": "/data/2.5/weather?q=berlin",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Methods": "GET, POST"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

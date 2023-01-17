@@ -3,6 +3,7 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClientTest do
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
   alias WeatherScraper.WeatherApi.OpenWeatherMapClient
+  alias WeatherScraper.Weather
 
   setup_all do
     HTTPoison.start()
@@ -14,7 +15,7 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClientTest do
     test "returns an escaped URI" do
       uri = OpenWeatherMapClient.process_request_url("/weather?q=!@#$%")
 
-      assert uri == "api.openweathermap.org/data/2.5/weather?q=!@#$%25&appid=test"
+      assert "api.openweathermap.org/data/2.5/weather?q=!@#$%25&appid=test" = uri
     end
   end
 
@@ -27,21 +28,29 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClientTest do
     end
 
     test "returns a symbolized map of expected parameters", %{body: body} do
-      processed_response = OpenWeatherMapClient.process_response_body(body)
-
       assert %{
                city: "Berlin",
                humidity: 79,
                pressure: 973,
                temp_max: 278.68,
-               temp_min: 277.18
-             } = processed_response
+               temp_min: 277.18,
+               time: _
+             } = OpenWeatherMapClient.process_response_body(body)
     end
   end
 
   describe "fetch_weather/1" do
     test "fetches weather data from the api and inserts a new weather record" do
       use_cassette "open_weather_map_success" do
+        assert {:ok,
+                %Weather{
+                  city: "Berlin",
+                  humidity: 79,
+                  pressure: 973,
+                  temp_max: 279.23,
+                  temp_min: 277.09,
+                  time: _
+                }} = OpenWeatherMapClient.fetch_weather("Berlin")
       end
     end
   end
