@@ -20,7 +20,7 @@ defmodule WeatherScraper.Scraper do
   end
 
   @impl true
-  def handle_info(:work, state) do
+  def handle_info(:fetch_weather_data, state) do
     Task.async(fn -> WeatherApi.fetch_weather() end)
 
     schedule_work()
@@ -28,6 +28,8 @@ defmodule WeatherScraper.Scraper do
     {:noreply, state}
   end
 
-  defp schedule_work(), do: Process.send_after(self(), :work, interval() * 1000)
-  defp interval, do: Application.fetch_env!(:weather_scraper, :poll_interval) |> String.to_integer
+  defp schedule_work(), do: Process.send_after(self(), :fetch_weather_data, interval() * 1000)
+
+  defp interval,
+    do: Application.fetch_env!(:weather_scraper, :poll_interval) |> String.to_integer()
 end

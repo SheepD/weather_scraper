@@ -22,12 +22,11 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClient do
   def process_response_body(body) do
     with parsed_body <- Poison.decode!(body),
          {:ok, city} <- Map.fetch(parsed_body, "name"),
-         {:ok, temp_data} <- Map.fetch(parsed_body, "main")
-    do
+         {:ok, temp_data} <- Map.fetch(parsed_body, "main") do
       temp_data
       |> Map.take(@expected_fields)
-      |> Map.new(fn({k, v}) -> {String.to_atom(k), v} end)
-      |> Map.merge(%{ city: city, time: DateTime.utc_now() })
+      |> Map.new(fn {k, v} -> {String.to_atom(k), v} end)
+      |> Map.merge(%{city: city, time: DateTime.utc_now()})
     else
       error -> error
     end
@@ -36,12 +35,15 @@ defmodule WeatherScraper.WeatherApi.OpenWeatherMapClient do
   @impl WeatherApi
   def fetch_weather(location) do
     with {:ok, %{body: params}} <- get("/weather?q=#{location}") do
-      %Weather{}
-      |> Weather.changeset(params)
-      |> Repo.insert()
+      weather =
+        %Weather{}
+        |> Weather.changeset(params)
+        |> Repo.insert()
+
+      {:ok, weather}
     else
       {:ok, _} -> {:error, :invalid_request}
-      error -> error
+      error -> {:error, error}
     end
   end
 
